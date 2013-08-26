@@ -2,16 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.joshlong.spring.walkingtour</groupId>
-	<artifactId>core</artifactId>
+	<groupId>javaconfigftw</groupId>
+	<artifactId>parent</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
+<!--
 		<module>services</module>
+-->
 		<module>ioc</module>
+<!--
 		<module>mobile-web</module>
 		<module>mobile-android</module>
 		<module>connected-web</module>
+-->
 	</modules>
 	<properties>
 		<java.version>1.6</java.version>
@@ -21,7 +25,7 @@
 		<activemq.version>5.5.0</activemq.version>
 		<spring-batch-infrastructure.version>2.2.0.RC1</spring-batch-infrastructure.version>
 		<spring.ws.version>2.0.1.RELEASE</spring.ws.version>
-		<org.springframework.version>3.2.2.RELEASE</org.springframework.version>
+		<org.springframework.version>3.2.3.RELEASE</org.springframework.version>
 		<org.springframework.security-version>3.0.3.RELEASE</org.springframework.security-version>
 		<spring.integration.version>2.2.1.RELEASE</spring.integration.version>
 		<org.aspectj.version>1.6.11</org.aspectj.version>

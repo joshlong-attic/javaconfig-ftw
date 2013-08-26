@@ -3,4 +3,6 @@
 # Package Files #
 *.jar
 *.war
+*.idea
+target
 *.ear
