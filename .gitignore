@@ -4,5 +4,6 @@
 *.jar
 *.war
 *.idea
+*.iml
 target
 *.ear
