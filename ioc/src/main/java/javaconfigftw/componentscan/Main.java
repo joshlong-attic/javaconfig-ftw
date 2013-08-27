@@ -1,10 +1,11 @@
 package javaconfigftw.componentscan;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.h2.Driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseFactoryBean;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -24,10 +25,10 @@ public class Main {
     public static class Config {
 
         @Bean
-        public DataSource dataSource() {
-            EmbeddedDatabaseFactoryBean embeddedDatabaseFactoryBean  =  new EmbeddedDatabaseFactoryBean()  ;
-            embeddedDatabaseFactoryBean.setDatabaseType(EmbeddedDatabaseType.H2);
-            return embeddedDatabaseFactoryBean.getObject() ;
+        public DataSource dataSource(Environment environment) {
+            Driver jdbcDriver = new Driver();
+            return new SimpleDriverDataSource(
+                    jdbcDriver, environment.getProperty("ds.url"));
         }
     }
 
