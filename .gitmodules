@@ -1,3 +1,6 @@
 [submodule "rest"]
 	path = rest
 	url = git@github.com:joshlong/the-spring-rest-stack.git
+[submodule "activiti"]
+	path = activiti
+	url = git@github.com:joshlong/Activiti.git
