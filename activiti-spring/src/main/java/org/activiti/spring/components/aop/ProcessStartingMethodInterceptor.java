@@ -15,12 +15,6 @@
  */
 package org.activiti.spring.components.aop;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Future;
-
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -35,6 +29,12 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Future;
 
 /**
  * {@link org.aopalliance.intercept.MethodInterceptor} that starts a business process
@@ -152,7 +152,7 @@ public class ProcessStartingMethodInterceptor implements MethodInterceptor {
 
 
 	/**
-	 * if there any arguments with the {@link org.activiti.engine.annotations.ProcessVariable} annotation,
+	 * if there any arguments with the {@link org.activiti.spring.annotations.ProcessVariable} annotation,
 	 * then we feed those parameters into the business process
 	 *
 	 * @param invocation the invocation of the method as passed to the {@link org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)} method

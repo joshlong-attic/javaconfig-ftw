@@ -31,10 +31,7 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 
 
 /**
- * this class is responsible for registering the other {@link org.springframework.beans.factory.config.BeanFactoryPostProcessor}s
- * and {@link BeanFactoryPostProcessor}s.
- * <p/>
- * Particularly, this will register the {@link ActivitiStateHandlerRegistry} which is used to react to states.
+ * Registers the {@link }
  *
  * @author Josh Long
  */
