@@ -1,7 +1,6 @@
 package javaconfigftw.integration;
 
 
-import javaconfigftw.JavaConfigFtwUtils;
 import javaconfigftw.batch.BatchConfiguration;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.integration.launch.JobLaunchingMessageHandler;
@@ -10,7 +9,9 @@ import org.springframework.context.annotation.*;
 
 public class Main {
     public static void main(String[] args) throws Throwable {
-        JavaConfigFtwUtils.run(IntegrationConfiguration.class ) ;
+        AnnotationConfigApplicationContext annotationConfigApplicationContext
+                = new AnnotationConfigApplicationContext(IntegrationConfiguration.class);
+        annotationConfigApplicationContext.registerShutdownHook();
     }
 
     @Configuration

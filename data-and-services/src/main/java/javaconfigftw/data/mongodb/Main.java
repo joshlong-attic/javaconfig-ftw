@@ -3,7 +3,6 @@ package javaconfigftw.data.mongodb;
 
 import javaconfigftw.CloudFoundryDataSourceConfiguration;
 import javaconfigftw.Customer;
-import javaconfigftw.JavaConfigFtwUtils;
 import javaconfigftw.LocalDataSourceConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.springframework.context.annotation.*;
@@ -26,7 +25,10 @@ public class Main {
 
     public static void main(String[] args) throws Throwable {
 
-        AnnotationConfigApplicationContext annotationConfigApplicationContext = JavaConfigFtwUtils.run(MongoRepositoryConfiguration.class) ;
+        AnnotationConfigApplicationContext annotationConfigApplicationContext1
+                = new AnnotationConfigApplicationContext(MongoRepositoryConfiguration.class);
+        annotationConfigApplicationContext1.registerShutdownHook();
+        AnnotationConfigApplicationContext annotationConfigApplicationContext = annotationConfigApplicationContext1;
         CustomerRepository customerRepository = annotationConfigApplicationContext.getBean(CustomerRepository.class);
         Customer[] customers = new Customer[]{
                 (new Customer("Phill", "Webb")),
