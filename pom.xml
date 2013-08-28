@@ -11,7 +11,7 @@
         <module>rest/code/</module>
         <!--         <module>web/social</module> -->
         <module>web/mobile</module>
-        <module>web/social</module>
+        <module>web/social-security</module>
         <module>ioc</module>
 
     </modules>

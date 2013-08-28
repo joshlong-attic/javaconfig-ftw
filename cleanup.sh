@@ -8,7 +8,7 @@ function clean {
 	
 	echo "Running search for '$1' of type '$2'." ;
 	
-	find . -type $2 -iname  $1 | while read l ; do
+	find . -type $2 -iname  "$1" | while read l ; do
 		echo "  deleting $l.";
 		rm -rf "$l" ;
 	done
@@ -19,7 +19,7 @@ function clean {
 clean ".settings" d
 
 # IntelliJ
-clean "*iml" f
+clean "*.iml" f
 clean "*idea" d
 
 # Maven
