@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
 
     public static void main(String args[]) throws Throwable {
-        String path =   packageToFolders(Main.class) + "/context.xml";
+        String path = packageToFolders(Main.class) + "/context.xml";
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(path);
      }
 

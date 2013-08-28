@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 public class Main {
     public static void main(String args[]) throws Throwable {
+
         AnnotationConfigApplicationContext annotationConfigurationApplicationContext = new AnnotationConfigApplicationContext(Config.class);
         annotationConfigurationApplicationContext.registerShutdownHook();
     }
