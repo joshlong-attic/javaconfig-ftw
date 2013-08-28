@@ -9,6 +9,8 @@
     <modules>
         <module>data-and-services</module>
         <module>rest/code/</module>
+        <!--         <module>web/social</module> -->
+        <module>web/mobile</module>
         <module>ioc</module>
 
     </modules>
