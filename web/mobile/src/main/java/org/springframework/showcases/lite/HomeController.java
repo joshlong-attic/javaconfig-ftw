@@ -36,6 +36,9 @@ public class HomeController {
      */
     @RequestMapping("/")
     public String home(SitePreference sitePreference, Model model) {
+        System.out.println( sitePreference.toString());
+        System.out.println( model.toString());
+
         return "home";
     }
 
