@@ -71,6 +71,8 @@ public class ProcessStartAnnotationBeanPostProcessor extends ProxyConfig impleme
 				ProxyFactory proxyFactory = new ProxyFactory(bean);
 				// Copy our properties (proxyTargetClass etc) inherited from ProxyConfig.
 				proxyFactory.copyFrom(this);
+                proxyFactory.setProxyTargetClass(true);
+                proxyFactory.setInterfaces( bean.getClass().getInterfaces());
 				proxyFactory.addAdvisor(this.advisor);
 				return proxyFactory.getProxy(this.beanClassLoader);
 			}

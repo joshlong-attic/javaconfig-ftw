@@ -16,6 +16,8 @@
 package org.activiti.spring.annotations;
 
 
+import org.springframework.stereotype.Component;
+
 import java.lang.annotation.*;
 
 /**
@@ -35,7 +37,7 @@ import java.lang.annotation.*;
  * registered in the context as "myBean." To subscribe to that, a POJO need only implement
  * (optionally) {@link ActivitiComponent} and, on a method, add
  * {@link State} to indicate that the method in particular is
- * tasked with responding to a state. If applied to a bean and there are no {@link org.activiti.engine.annotations.ActivitiComponent}
+ * tasked with responding to a state. If applied to a bean and there are no {@link  ActivitiComponent}
  * annotations present, then one option might be to automatically enlist all public methods
  * as handlers for states whose IDs or names are inferred from the method name:
  * <p/>
@@ -49,7 +51,7 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-//@Component
+@Component
 public @interface ActivitiComponent {
 	String processKey() default "";
 }

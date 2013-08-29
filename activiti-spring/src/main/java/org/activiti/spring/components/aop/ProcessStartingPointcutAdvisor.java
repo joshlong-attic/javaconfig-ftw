@@ -15,12 +15,6 @@
  */
 package org.activiti.spring.components.aop;
 
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.activiti.engine.ProcessEngine;
 import org.activiti.spring.annotations.StartProcess;
 import org.activiti.spring.components.aop.util.MetaAnnotationMatchingPointcut;
@@ -29,6 +23,13 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Pointcut;
 import org.springframework.aop.PointcutAdvisor;
 import org.springframework.aop.support.ComposablePointcut;
+import org.springframework.util.Assert;
+
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * AOP advice for methods annotated with (by default) {@link StartProcess}.
@@ -68,7 +69,8 @@ public class ProcessStartingPointcutAdvisor implements PointcutAdvisor, Serializ
 
 	public ProcessStartingPointcutAdvisor(ProcessEngine pe) {
 		this.processEngine = pe;
-		this.pointcut = buildPointcut();
+        Assert.notNull(this.processEngine,  "the processEngine is required");
+        this.pointcut = buildPointcut();
 		this.advice = buildAdvise();
 
 	}

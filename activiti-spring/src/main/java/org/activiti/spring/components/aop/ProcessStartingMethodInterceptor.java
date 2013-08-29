@@ -56,18 +56,18 @@ public class ProcessStartingMethodInterceptor implements MethodInterceptor {
 	 */
 	public ProcessStartingMethodInterceptor(ProcessEngine processEngine) {
 		this.processEngine = processEngine;
+        Assert.notNull( this.processEngine, "the processEngine can't be null!");
 	}
 
-	boolean shouldReturnProcessInstance(StartProcess startProcess, MethodInvocation methodInvocation, Object result) {
+	protected boolean shouldReturnProcessInstance(StartProcess startProcess, MethodInvocation methodInvocation, Object result) {
 		return (result instanceof ProcessInstance || methodInvocation.getMethod().getReturnType().isAssignableFrom(ProcessInstance.class));
 	}
 
-	boolean shouldReturnProcessInstanceId(StartProcess startProcess, MethodInvocation methodInvocation, Object result) {
+    protected boolean shouldReturnProcessInstanceId(StartProcess startProcess, MethodInvocation methodInvocation, Object result) {
 		return startProcess.returnProcessInstanceId() && (result instanceof String || methodInvocation.getMethod().getReturnType().isAssignableFrom(String.class));
 	}
 
-	@SuppressWarnings("unused")
-	boolean shouldReturnAsyncResultWithProcessInstance(StartProcess startProcess, MethodInvocation methodInvocation, Object result) {
+     protected boolean shouldReturnAsyncResultWithProcessInstance(StartProcess startProcess, MethodInvocation methodInvocation, Object result) {
 		return (result instanceof Future || methodInvocation.getMethod().getReturnType().isAssignableFrom(Future.class));
 	}
 

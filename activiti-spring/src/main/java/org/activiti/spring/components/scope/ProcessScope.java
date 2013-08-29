@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.scope.ScopedObject;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -40,9 +41,12 @@ import org.springframework.beans.factory.config.Scope;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.ReflectionUtils;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -65,26 +69,24 @@ public class ProcessScope implements Scope, InitializingBean, BeanFactoryPostPro
      * works in any bean - scoped or not
      */
     public final static String PROCESS_SCOPE_PROCESS_VARIABLES_SINGLETON = "processVariables";
-
     public final static String PROCESS_SCOPE_NAME = "process";
-
     private final ConcurrentHashMap<String, Object> processVariablesMap =
             new ConcurrentHashMap<String, Object>() {
-        @Override
-        public java.lang.Object get(java.lang.Object o) {
+                @Override
+                public java.lang.Object get(java.lang.Object o) {
 
-            Assert.isInstanceOf(String.class, o, "the 'key' must be a String");
+                    Assert.isInstanceOf(String.class, o, "the 'key' must be a String");
 
-            String varName = (String) o;
+                    String varName = (String) o;
 
-            ProcessInstance processInstance = Context.getExecutionContext().getProcessInstance();
-            ExecutionEntity executionEntity = (ExecutionEntity) processInstance;
-            if (executionEntity.getVariableNames().contains(varName)) {
-                return executionEntity.getVariable(varName);
-            }
-            throw new RuntimeException("no processVariable by the name of '" + varName + "' is available!");
-        }
-    };
+                    ProcessInstance processInstance = Context.getExecutionContext().getProcessInstance();
+                    ExecutionEntity executionEntity = (ExecutionEntity) processInstance;
+                    if (executionEntity.getVariableNames().contains(varName)) {
+                        return executionEntity.getVariable(varName);
+                    }
+                    throw new RuntimeException("no processVariable by the name of '" + varName + "' is available!");
+                }
+            };
     private ClassLoader classLoader = ClassUtils.getDefaultClassLoader();
     private boolean proxyTargetClass = true;
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -235,7 +237,43 @@ public class ProcessScope implements Scope, InitializingBean, BeanFactoryPostPro
         ProcessInstance processInstance = Context.getExecutionContext().getProcessInstance();
         ExecutionEntity executionEntity = (ExecutionEntity) processInstance;
         Assert.isTrue(scopedObject instanceof Serializable, "the scopedObject is not " + Serializable.class.getName() + "!");
-        executionEntity.setVariable(variableName, scopedObject);
+        Object clone = aopFreeClone(scopedObject);
+        executionEntity.setVariable(variableName, clone);
+    }
+
+    private Object aopFreeClone(final Object object) {
+        if (AopUtils.isAopProxy(object)) { // a clone and in so doing, remove all the AOP cruft before persisting the object.
+            Class<?> ogClass = ClassUtils.getUserClass(object);
+            try {
+                final Object obj = ogClass.newInstance();
+                ReflectionUtils.doWithFields(obj.getClass(), new ReflectionUtils.FieldCallback() {
+                            @Override
+                            public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
+                                boolean previouslyAccessible = field.isAccessible();
+                                try {
+                                    if (!previouslyAccessible)
+                                        field.setAccessible(true);
+                                    Object oldValue = field.get(object);
+                                    field.set(obj, oldValue);
+
+                                } finally {
+                                    field.setAccessible(previouslyAccessible);
+                                }
+                            }
+                        }, new ReflectionUtils.FieldFilter() {
+                            @Override
+                            public boolean matches(Field field) {
+                                return !Modifier.isFinal(field.getModifiers());
+                            }
+                        }
+                );
+                return obj;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            return object;
+        }
     }
 }
 

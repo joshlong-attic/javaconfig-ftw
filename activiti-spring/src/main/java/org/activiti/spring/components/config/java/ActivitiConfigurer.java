@@ -8,8 +8,12 @@ import org.activiti.engine.ProcessEngine;
  */
 public interface ActivitiConfigurer {
 
-
-
+    /***
+     * Build up the {@link ProcessEngine process engine}. The process engine
+     * itself will be used to factory other components like the {@link org.activiti.engine.RuntimeService runtime service}.
+     *
+     * @throws Exception
+     */
     ProcessEngine processEngine() throws Exception ;
 
 }

@@ -15,11 +15,6 @@
  */
 package org.activiti.spring.components.aop;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.activiti.spring.annotations.ProcessId;
 import org.activiti.spring.annotations.ProcessVariable;
 import org.activiti.spring.annotations.ProcessVariables;
@@ -40,14 +35,19 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * the idea is that this bean post processor is responsible for registering all beans
- * that have the {@link org.activiti.engine.annotations.State} annotation.
+ * that have the {@link  State} annotation.
  *
  * @author Josh Long
  * @since 5.3
- */
+ */      @Deprecated
 @SuppressWarnings("unused") // registered through XML
 public class ActivitiStateAnnotationBeanPostProcessor implements BeanPostProcessor, BeanClassLoaderAware, BeanFactoryAware, InitializingBean, Ordered {
 
@@ -84,8 +84,7 @@ public class ActivitiStateAnnotationBeanPostProcessor implements BeanPostProcess
 		this.registry = registry;
 	}
 
-	public Object postProcessAfterInitialization(final Object bean,
-																							 final String beanName) throws BeansException {
+	public Object postProcessAfterInitialization(final Object bean,  final String beanName) throws BeansException {
 		// first sift through and get all the methods
 		// then get all the annotations
 		// then build the metadata and register the metadata

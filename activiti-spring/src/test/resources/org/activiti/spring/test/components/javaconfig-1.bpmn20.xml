@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions id="definitions"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             targetNamespace="Examples">
+
+    <process id="crm-order-fulfillment">
+
+        <startEvent id="n1" />
+            <sequenceFlow id="f1" sourceRef="n1" targetRef="customer-order-review" />
+
+        <serviceTask id="customer-order-review" activiti:delegateExpression="${customerService}" />
+            <sequenceFlow id="f2" sourceRef="customer-order-review" targetRef="n3" />
+
+        <endEvent id="n3" />
+
+    </process>
+
+</definitions>

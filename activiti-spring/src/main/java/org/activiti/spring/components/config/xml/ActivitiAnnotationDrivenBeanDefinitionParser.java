@@ -57,6 +57,7 @@ public class ActivitiAnnotationDrivenBeanDefinitionParser implements BeanDefinit
 			abstractBeanDefinition.getPropertyValues().add(Conventions.attributeNameToPropertyName(processEngineAttribute), new RuntimeBeanReference(procEngineRef));
 	}
 
+    @Deprecated
 	private void registerStateHandlerAnnotationBeanFactoryPostProcessor(Element element, ParserContext context) {
 		Class clz = StateHandlerAnnotationBeanFactoryPostProcessor.class;
 		BeanDefinitionBuilder postProcessorBuilder = BeanDefinitionBuilder.genericBeanDefinition(clz.getName());
