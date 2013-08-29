@@ -2,7 +2,6 @@ package org.activiti.spring.test.components.config.java;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.spring.annotations.ProcessVariable;
@@ -33,20 +32,19 @@ public class Main {
 
         CustomerService customerService = ac.getBean(CustomerService.class);
         RepositoryService repositoryService = ac.getBean(RepositoryService.class);
-        TaskService taskService = ac.getBean(TaskService.class);
-        RuntimeService runtimeService = ac.getBean(RuntimeService.class);
-
 
         repositoryService.createDeployment()
                 .addClasspathResource("org/activiti/spring/test/components/javaconfig-1.bpmn20.xml")
                 .deploy();
 
-        String processInstanceId = customerService.launchWaiterProcess(232L);
+        String processInstanceId;
+        processInstanceId = customerService.startFulfillment(10L);
+        System.out.println("just finished process " + processInstanceId);
 
+        processInstanceId = customerService.startFulfillment(12L);
+        System.out.println("just finished process " + processInstanceId);
 
     }
-
-
 
     @Configuration
     @EnableActiviti
@@ -77,11 +75,7 @@ public class Main {
         private RepositoryService repositoryService;
         private Cart cart;
         private TaskService taskService;
-
-        // NB: do NOT remove this. We need it for cglib proxies!
-        CustomerService() {
-        }
-
+        CustomerService(){}
         public CustomerService(ProcessEngine processEngine, RepositoryService repositoryService, TaskService taskService, Cart cart) {
             this.processEngine = processEngine;
             this.taskService = taskService;
@@ -90,17 +84,17 @@ public class Main {
         }
 
         @StartProcess(processKey = "crm-order-fulfillment", returnProcessInstanceId = true)
-        public String launchWaiterProcess(@ProcessVariable("customerId") long customerId) {
+        public String startFulfillment(@ProcessVariable("customerId") long customerId) {
             cart.amountDue = cart.amountDue + 10;
             System.out.println("start scoped 'waiter' process with customerId = " + customerId);
             return null;
         }
 
         @State("customer-order-review")
-        public void customerOrderReview (@ProcessVariable("customerId") long customerId , DelegateExecution delegateExecution ) {
+        public void customerOrderReview(@ProcessVariable("customerId") long customerId, DelegateExecution delegateExecution) {
             System.out.println(this.cart.toString());
-            System.out.println( "the current customerId is " + customerId+ ".") ;
-           // System.out.println( delegateExecution);
+            System.out.println("the current customerId is " + customerId + ".");
+            // System.out.println( delegateExecution);
         }
 
     }
