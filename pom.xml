@@ -9,7 +9,7 @@
     <modules>
         <module>data-and-services</module>
         <module>activiti-spring</module>
-        <module>rest/code/</module>
+        <module>rest/code/web</module>
         <module>web/mobile</module>
         <module>web/social-security</module>
         <module>ioc</module>
