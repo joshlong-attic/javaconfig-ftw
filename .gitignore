@@ -7,3 +7,6 @@
 *.iml
 target
 *.ear
+.classpath
+.project
+.settings
