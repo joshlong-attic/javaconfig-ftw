@@ -7,6 +7,10 @@
 
     <context:property-placeholder location="/config.properties"/>
 
+<!--
+    <context:component-scan base-package="javaconfigftw.componentscan"/>
+-->
+
     <bean class="javaconfigftw.xml.CustomerService">
         <property name="dataSource" ref="ds"/>
     </bean>

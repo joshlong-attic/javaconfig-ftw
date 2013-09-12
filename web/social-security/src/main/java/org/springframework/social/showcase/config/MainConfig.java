@@ -41,7 +41,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Craig Walls
  */
 @Configuration
-@ComponentScan(basePackages = "org.springframework.social.showcase", excludeFilters = { @Filter(Configuration.class) })
+@ComponentScan  (basePackages = "org.springframework.social.showcase", excludeFilters = { @Filter(Configuration.class) })
 @PropertySource("classpath:org/springframework/social/showcase/config/application.properties")
 @EnableTransactionManagement
 public class MainConfig {

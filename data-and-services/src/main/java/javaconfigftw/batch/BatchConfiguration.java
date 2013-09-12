@@ -1,4 +1,4 @@
-package javaconfigftw.batch ;
+package javaconfigftw.batch;
 
 import javaconfigftw.Customer;
 import org.apache.commons.logging.Log;
@@ -40,7 +40,7 @@ import java.sql.Driver;
 @EnableBatchProcessing(modular = true)
 @ComponentScan
 @PropertySource("classpath:/services.properties")
-public   class BatchConfiguration {
+public class BatchConfiguration {
 
     private static final String readCsvFileIntoTableStep = "readCsvFileIntoTableStep";
     private static final String readCsvFileIntoTableStepReader = readCsvFileIntoTableStep + "Reader";
@@ -61,7 +61,7 @@ public   class BatchConfiguration {
 
     @Bean
     public DataSource dataSource(Environment environment) {
-        String  pw = environment.getProperty("dataSource.password"),
+        String pw = environment.getProperty("dataSource.password"),
                 user = environment.getProperty("dataSource.user"),
                 url = environment.getProperty("dataSource.url");
 
