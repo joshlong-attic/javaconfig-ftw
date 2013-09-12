@@ -1,5 +1,5 @@
 
-package io.spring.javaconfigftw.v2;
+package io.spring.presentations.jcmm.yourown.v2;
 
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -7,7 +7,6 @@ import org.springframework.core.type.AnnotationMetadata;
 
 public class MyConfigImportSelector implements ImportSelector {
 
-	@Override
 	public String[] selectImports(AnnotationMetadata importingClassMetadata) {
 		// You can read any Annotation from the class, but generally you will read
 		// details from your own annotation.

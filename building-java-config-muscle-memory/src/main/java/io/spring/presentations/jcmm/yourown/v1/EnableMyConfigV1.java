@@ -1,5 +1,5 @@
 
-package io.spring.javaconfigftw.v1;
+package io.spring.presentations.jcmm.yourown.v1;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

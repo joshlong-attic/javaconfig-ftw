@@ -1,5 +1,5 @@
 
-package io.spring.javaconfigftw.v3;
+package io.spring.presentations.jcmm.yourown.v2;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -17,9 +17,9 @@ import org.springframework.context.annotation.ImportSelector;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(MyConfigImportBeanDefinitionRegistrar.class)
-public @interface EnableMyConfigV3 {
+@Import(MyConfigImportSelector.class)
+public @interface EnableMyConfigV2 {
 
-	public String value();
+	public boolean showCopyright() default false;
 
 }
